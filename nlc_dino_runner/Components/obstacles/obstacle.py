@@ -9,10 +9,11 @@ class Obstacle(Sprite):
         self.index = index
         self.rect = self.image[self.index].get_rect()
         self.rect.x = SCREEN_WIDTH
-
+        self.game_speed = 15
+        self.time = 0
 
     def update(self, obstacles):
-        self.rect.x -= 10
+        self.rect.x -= self.game_speed
         if self.rect.x < -self.rect.width:
             obstacles.pop()
 

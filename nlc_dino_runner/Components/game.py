@@ -46,10 +46,22 @@ class Game:
     def print_menu_elements(self):
         half_width = SCREEN_WIDTH // 2
         half_height = SCREEN_HEIGHT // 2
-        text_element, text_element_rec = text_utils.get_centred_message("Press any key to start ")
-        self.screen.blit(text_element, text_element_rec)
-        text_element, text_element_rec = text_utils.get_centred_message("Death Count :" + str(self.death_count), height = half_height + 50)
-        self.screen.blit(text_element, text_element_rec)
+        if self.death_count == 0:
+            text_element, text_element_rec = text_utils.get_centred_message("Press any key to start ")
+            self.screen.blit(text_element, text_element_rec)
+            pygame.mixer.music.load("main_menu_music.mp3")
+            pygame.mixer.music.play(10)
+            pygame.mixer.music.set_volume(0.5)
+
+        else:
+            text_element, text_element_rec = text_utils.get_centred_message("Press any key to restart ")
+            self.screen.blit(text_element, text_element_rec)
+            pygame.mixer.music.load("main_menu_music.mp3")
+            pygame.mixer.music.play(10)
+            pygame.mixer.music.set_volume(0.5)
+        if self.death_count != 0:
+            text_element, text_element_rec = text_utils.get_centred_message("Death Count : " + str(self.death_count), height = half_height + 50)
+            self.screen.blit(text_element, text_element_rec)
         self.screen.blit(ICON, (half_width - 40, half_height - 200))
 
     def handle_key_events_on_menu(self):

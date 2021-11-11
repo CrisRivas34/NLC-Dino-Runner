@@ -16,7 +16,10 @@ class ObstacleManager:
         for obstacle in self.obstacles:
             obstacle.update(self.obstacles)
             if game.player.dino_rect.colliderect(obstacle.rect):
-                pygame.time.delay(500)
+                pygame.mixer.music.load("death_sound.mp3")
+                pygame.mixer.music.play(1)
+                pygame.mixer.music.set_volume(0.5)
+                pygame.time.delay(1000)
                 game.playing = False
                 game.death_count += 1
                 break
