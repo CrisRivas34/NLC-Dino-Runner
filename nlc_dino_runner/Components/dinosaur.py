@@ -1,14 +1,15 @@
 import pygame
 
 from nlc_dino_runner.utils.constants import RUNNING, DUCKING, JUMPING, DEFAULT_TYPE, DUCKING_SHIELD, SHIELD_TYPE, \
-    RUNNING_SHIELD, JUMPING_SHIELD
+    RUNNING_SHIELD, JUMPING_SHIELD, RUNNING_HAMMER, JUMPING_HAMMER, DUCKING_HAMMER, HAMMER_TYPE, HAMMER, HAMMERS
+from nlc_dino_runner.Components.powerups.hammer import Hammer
 from pygame.sprite import Sprite
 
 
 class Dinosaur(Sprite):
     X_POS = 80
     Y_POS = 320
-    Y_POS_DUCK = 340
+    Y_POS_DUCK = 360
     JUMP_VEL = 10
 
     FONT_STYLE = "freesansbold.ttf"
@@ -16,9 +17,9 @@ class Dinosaur(Sprite):
 
     def __init__(self):
         #self.image = RUNNING[0]
-        self.run_img = {DEFAULT_TYPE: RUNNING, SHIELD_TYPE: RUNNING_SHIELD}
-        self.duck_img = {DEFAULT_TYPE: DUCKING, SHIELD_TYPE: DUCKING_SHIELD}
-        self.jump_img = {DEFAULT_TYPE: JUMPING, SHIELD_TYPE: JUMPING_SHIELD}
+        self.run_img = {DEFAULT_TYPE: RUNNING, SHIELD_TYPE: RUNNING_SHIELD, HAMMER_TYPE: RUNNING_HAMMER}
+        self.duck_img = {DEFAULT_TYPE: DUCKING, SHIELD_TYPE: DUCKING_SHIELD, HAMMER_TYPE: DUCKING_HAMMER}
+        self.jump_img = {DEFAULT_TYPE: JUMPING, SHIELD_TYPE: JUMPING_SHIELD, HAMMER_TYPE: JUMPING_HAMMER}
         self.type = DEFAULT_TYPE
         self.image = self.run_img[self.type][0]
 
@@ -34,6 +35,11 @@ class Dinosaur(Sprite):
         self.dino_jump = False
         self.dino_duck = False
         self.jump_vel = 10
+
+        self.hammer = False
+        self.hammer_time_up = 0
+        self.hammer_speed = 15
+        self.throw_hammer = False
 
     def update(self, user_input):
         if self.dino_run:
